@@ -1,20 +1,16 @@
 #!/usr/bin/python3
-"""
-Amenity Class from Models Module
-"""
-import os
+"""This is the amenity class"""
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
-from sqlalchemy import Column, Integer, String, Float
-from sqlalchemy.orm import backref
-storage_type = os.environ.get('HBNB_TYPE_STORAGE')
+from sqlalchemy import Column, String
+from models.place import place_amenity
 
 
 class Amenity(BaseModel, Base):
-    """Amenity class handles all application amenities"""
-    if storage_type == "db":
-        __tablename__ = 'amenities'
-        name = Column(String(128), nullable=False)
-        place_amenities = relationship("Place", secondary="place_amenity")
-    else:
-        name = ''
+    """This is the class for Amenity
+    Attributes:
+        name: input name
+    """
+    __tablename__ = "amenities"
+    name = Column(String(128), nullable=False)
+    place_amenities = relationship("Place", secondary=place_amenity)
